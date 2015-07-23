@@ -5,7 +5,7 @@ class Processor
 
   def initialize(file_name, begins, ends)
     @file_name = file_name
-    @begins = begins
+    @begins = "#{begins}\n"
     @ends = ends
   end
 
