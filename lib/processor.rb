@@ -16,4 +16,11 @@ class Processor
     content = File.read(@file_name)
     content[/#{Regexp.escape(@begins)}(.*?)#{Regexp.escape(@ends)}/m, 1]
   end
+
+  def citations
+    matches = (/\n(From[^\n]*:)\n\n(.*)\n\n[^\n| ]/).match(extract)
+    if matches
+      [{header: matches[1], text: matches[2].sub(/\A    /, "")}]
+    end
+  end
 end
