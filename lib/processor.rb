@@ -18,9 +18,9 @@ class Processor
   end
 
   def citations
-    matches = (/\n(From[^\n]*:)\n\n(.*)\n\n[^\n| ]/).match(extract)
+    matches = extract.scan(/\n(From.*?:)\n\n(.*?)\n\n/m)
     if matches
-      [{header: matches[1], text: matches[2].sub(/\A    /, "")}]
+      matches.map { |m| {header: m[0], text: m[1].gsub(/    /, "") } }
     end
   end
 end
