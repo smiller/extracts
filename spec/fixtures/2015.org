@@ -12,4 +12,19 @@ more relevant stuff
 
 *** Tuesday 21 July 2015
 
-later stuff
+relevant stuff
+
+From C. S. Lewis, /The Four Loves/, 162:
+
+    quoted stuff
+
+more relevant stuff
+
+From J. R. R. Tolkien, /Tree and Leaf/, 25:
+
+    more quoted stuff
+    on multiple lines
+
+closing relevant stuff
+
+*** Wednesday 22 July 2015

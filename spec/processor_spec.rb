@@ -6,12 +6,24 @@ RSpec.describe Processor, "#extract" do
       p = Processor.new("spec/fixtures/2015.org", "*** Monday 20 July 2015", "*** Tuesday 21 July 2015")
       expect(p.extract).to eq("\nrelevant stuff\n\nFrom C. S. Lewis, /The Four Loves/, 162:\n\n    quoted stuff\n\nmore relevant stuff\n\n")
     end
-    it "extracts one citation" do
-      p = Processor.new("spec/fixtures/2015.org", "*** Monday 20 July 2015", "*** Tuesday 21 July 2015")
-      expect(p.citations.first).to eq({header: "From C. S. Lewis, /The Four Loves/, 162:", text: "quoted stuff"})
+    context "citations" do
+      it "extracts one" do
+        p = Processor.new("spec/fixtures/2015.org", "*** Monday 20 July 2015", "*** Tuesday 21 July 2015")
+        expect(p.citations.first).to eq({header: "From C. S. Lewis, /The Four Loves/, 162:", text: "quoted stuff"})
+      end
+      it "extracts multiple" do
+        p = Processor.new("spec/fixtures/2015.org", "*** Tuesday 21 July 2015", "*** Wednesday 22 July 2015")
+        expect(p.citations)
+          .to eq([
+                  {
+                   header: "From C. S. Lewis, /The Four Loves/, 162:",
+                   text: "quoted stuff"},
+                  {
+                   header: "From J. R. R. Tolkien, /Tree and Leaf/, 25:",
+                   text: "more quoted stuff\non multiple lines"}
+                 ])
+      end
     end
-
-
   end
 
   context "reading and writing" do
