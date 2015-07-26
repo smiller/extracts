@@ -18,9 +18,41 @@ class Processor
   end
 
   def citations
-    matches = extract.scan(/\n(From.*?:)\n\n(.*?)\n\n/m)
-    if matches
-      matches.map { |m| {header: m[0], text: m[1].gsub(/    /, "") } }
+    citing = false
+    extract.split("\n").inject([]) do |citations, line|
+      if header_line?(line)
+        citations, citing = process_header_line(citations, line)
+      elsif citing
+        if citation_line?(line)
+          citations, citing = process_citation_line(citations, line)
+        else
+          citations, citing = finish_citation(citations)
+        end
+      end
+      citations
     end
+  end
+
+  def header_line?(line)
+    line =~ /From.*:/
+  end
+
+  def process_header_line(citations, line)
+    citations << { header: line, text: [] }
+    [citations, true]
+  end
+
+  def citation_line?(line)
+    line == "" || line =~ /\A    /
+  end
+
+  def process_citation_line(citations, line)
+    citations.last[:text] << line.sub(/\A    /, "")
+    [citations, true]
+  end
+
+  def finish_citation(citations)
+    citations.last[:text] = citations.last[:text][1..-2].join("\n")
+    [citations, false]
   end
 end

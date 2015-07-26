@@ -20,7 +20,7 @@ RSpec.describe Processor, "#extract" do
                    text: "quoted stuff"},
                   {
                    header: "From J. R. R. Tolkien, /Tree and Leaf/, 25:",
-                   text: "more quoted stuff\non multiple lines"}
+                   text: "more quoted stuff\non multiple lines\n\nwith line breaks between"}
                  ])
       end
     end

@@ -27,6 +27,8 @@ From J. R. R. Tolkien, /Tree and Leaf/, 25:
     more quoted stuff
     on multiple lines
 
+    with line breaks between
+
 closing relevant stuff
 
 *** Wednesday 22 July 2015
